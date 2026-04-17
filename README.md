@@ -34,7 +34,7 @@
 > **Open `index.html` directly in any browser — no server required.**
 
 ```bash
-
+git https://github.com/prantik05byte/sap_btp
 cd smartprocure360
 open index.html        # macOS
 start index.html       # Windows
