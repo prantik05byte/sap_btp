@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartProcure 360 — NovaTech Industries | SAP BTP</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="sp-app">
+
+  <!-- HEADER -->
+  <div class="sp-header">
+    <div class="sp-header-logo">
+      <div class="sp-logo-icon">SP</div>
+      <div>
+        <div class="sp-title">SmartProcure 360</div>
+        <div class="sp-subtitle">NovaTech Industries Pvt. Ltd. — SAP BTP Platform</div>
+      </div>
+    </div>
+    <div class="sp-header-right">
+      <div style="font-weight:600;">NTPL-ERP-2024</div>
+      <div>FI · MM · SD Integration</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="sp-nav" id="nav">
+    <div class="sp-nav-item active" onclick="showTab('dashboard')">Dashboard</div>
+    <div class="sp-nav-item" onclick="showTab('po')">Purchase Orders</div>
+    <div class="sp-nav-item" onclick="showTab('budget')">Budget Monitor</div>
+    <div class="sp-nav-item" onclick="showTab('approvals')">Approvals
+      <span class="badge-count" id="pending-count">3</span>
+    </div>
+    <div class="sp-nav-item" onclick="showTab('org')">Company Setup</div>
+    <div class="sp-nav-item" onclick="showTab('about')">About Project</div>
+  </div>
+
+  <!-- DASHBOARD TAB -->
+  <div class="sp-content" id="tab-dashboard">
+    <div class="sp-section-title">Executive Dashboard</div>
+    <div class="sp-section-sub">NovaTech Industries — Real-time procurement &amp; finance overview</div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card kpi-blue">
+        <div class="kpi-label">Total POs This Month</div>
+        <div class="kpi-value" id="kpi-total-po">47</div>
+        <div class="kpi-change up">▲ 12% from last month</div>
+      </div>
+      <div class="kpi-card kpi-green">
+        <div class="kpi-label">Budget Utilization</div>
+        <div class="kpi-value">68%</div>
+        <div class="kpi-change up">Within approved limit</div>
+      </div>
+      <div class="kpi-card kpi-orange">
+        <div class="kpi-label">Pending Approvals</div>
+        <div class="kpi-value" id="kpi-pending">3</div>
+        <div class="kpi-change down">Requires immediate action</div>
+      </div>
+      <div class="kpi-card kpi-red">
+        <div class="kpi-label">Avg. Approval Time</div>
+        <div class="kpi-value">4.2h</div>
+        <div class="kpi-change up">▼ 61% vs manual (11 days)</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">Department Budget Status</div>
+        <div class="stat-row"><span>Finance (FI)</span><span class="green-bold">₹18.4L / ₹25L</span></div>
+        <div class="bar-bg"><div class="bar-fill bar-green" style="width:73%"></div></div>
+        <div class="bar-label">73% utilized</div>
+        <div class="stat-row"><span>Materials Mgmt (MM)</span><span class="orange-bold">₹38.2L / ₹45L</span></div>
+        <div class="bar-bg"><div class="bar-fill bar-orange" style="width:85%"></div></div>
+        <div class="bar-label" style="color:#e76500">85% utilized — Near limit</div>
+        <div class="stat-row"><span>Sales &amp; Distribution (SD)</span><span class="blue-bold">₹12.1L / ₹20L</span></div>
+        <div class="bar-bg"><div class="bar-fill bar-blue" style="width:60%"></div></div>
+        <div class="bar-label">60% utilized</div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Recent Activity</div>
+        <div class="stat-row"><span><b>PO-2024-047</b> created</span><span class="badge badge-inprogress">In Review</span></div>
+        <div class="stat-row"><span><b>PO-2024-046</b> approved</span><span class="badge badge-approved">Approved</span></div>
+        <div class="stat-row"><span>Budget alert: MM Dept</span><span class="badge badge-pending">Warning</span></div>
+        <div class="stat-row"><span><b>PO-2024-044</b> goods received</span><span class="badge badge-approved">GRN Done</span></div>
+        <div class="stat-row"><span>Invoice INV-892 posted</span><span class="badge badge-approved">FI Posted</span></div>
+        <div class="stat-row"><span><b>PO-2024-041</b> rejected</span><span class="badge badge-rejected">Rejected</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">SAP BTP Integration Architecture</div>
+      <div class="arch-row">
+        <div class="arch-box arch-ui"><div class="arch-icon">UI</div><div class="arch-tech">SAP Build Apps</div><div class="arch-sub">Fiori UI Layer</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box arch-api"><div class="arch-icon">API</div><div class="arch-tech">SAP CAP</div><div class="arch-sub">Business Logic</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box arch-db"><div class="arch-icon">DB</div><div class="arch-tech">HANA Cloud</div><div class="arch-sub">Database</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box arch-wf"><div class="arch-icon">WF</div><div class="arch-tech">BTP Workflow</div><div class="arch-sub">Approvals Engine</div></div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box arch-erp"><div class="arch-icon">ERP</div><div class="arch-tech">S/4HANA</div><div class="arch-sub">Backend ERP</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PURCHASE ORDERS TAB -->
+  <div class="sp-content hidden" id="tab-po">
+    <div class="tab-header-row">
+      <div>
+        <div class="sp-section-title">Purchase Orders (MM Module)</div>
+        <div class="sp-section-sub">Material procurement requests across all departments</div>
+      </div>
+      <button class="btn btn-primary" onclick="showCreatePO()">+ Create PO</button>
+    </div>
+    <div class="panel" style="overflow-x:auto">
+      <table class="po-table">
+        <thead>
+          <tr>
+            <th>PO Number</th><th>Vendor</th><th>Material / Service</th>
+            <th>Dept</th><th>Amount (INR)</th><th>Date</th><th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="po-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- BUDGET MONITOR TAB -->
+  <div class="sp-content hidden" id="tab-budget">
+    <div class="sp-section-title">Budget Monitor (FI Module)</div>
+    <div class="sp-section-sub">Real-time cost center tracking — NovaTech Industries FY 2024-25</div>
+    <div class="budget-grid">
+      <div class="panel">
+        <div class="panel-title" style="color:#0854a0">Finance Department (FI)</div>
+        <div class="stat-row"><span class="muted">Cost Center</span><span class="bold">CC-1001</span></div>
+        <div class="stat-row"><span class="muted">Annual Budget</span><span class="bold">₹25,00,000</span></div>
+        <div class="stat-row"><span class="muted">Utilized</span><span class="bold green-bold">₹18,40,000</span></div>
+        <div class="stat-row"><span class="muted">Remaining</span><span class="bold">₹6,60,000</span></div>
+        <div class="bar-bg" style="height:14px;margin-top:12px"><div class="bar-fill bar-green" style="width:73%"></div></div>
+        <div class="bar-label">73% utilized — Healthy</div>
+        <div class="gl-section">
+          <div class="gl-title">GL Account Breakdown</div>
+          <div class="stat-row small-text"><span>Salaries (4001)</span><span>₹12,00,000</span></div>
+          <div class="stat-row small-text"><span>Office Supplies (4002)</span><span>₹2,40,000</span></div>
+          <div class="stat-row small-text"><span>IT Services (4003)</span><span>₹4,00,000</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title" style="color:#e76500">Materials Management (MM)</div>
+        <div class="stat-row"><span class="muted">Cost Center</span><span class="bold">CC-2001</span></div>
+        <div class="stat-row"><span class="muted">Annual Budget</span><span class="bold">₹45,00,000</span></div>
+        <div class="stat-row"><span class="muted">Utilized</span><span class="bold orange-bold">₹38,20,000</span></div>
+        <div class="stat-row"><span class="muted">Remaining</span><span class="bold">₹6,80,000</span></div>
+        <div class="bar-bg" style="height:14px;margin-top:12px"><div class="bar-fill bar-orange" style="width:85%"></div></div>
+        <div class="bar-label" style="color:#e76500">85% utilized — Warning: Near Limit!</div>
+        <div class="gl-section">
+          <div class="gl-title">GL Account Breakdown</div>
+          <div class="stat-row small-text"><span>Raw Materials (5001)</span><span>₹22,00,000</span></div>
+          <div class="stat-row small-text"><span>Machinery (5002)</span><span>₹10,20,000</span></div>
+          <div class="stat-row small-text"><span>Consumables (5003)</span><span>₹6,00,000</span></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title" style="color:#107e3e">Sales &amp; Distribution (SD)</div>
+        <div class="stat-row"><span class="muted">Cost Center</span><span class="bold">CC-3001</span></div>
+        <div class="stat-row"><span class="muted">Annual Budget</span><span class="bold">₹20,00,000</span></div>
+        <div class="stat-row"><span class="muted">Utilized</span><span class="bold blue-bold">₹12,10,000</span></div>
+        <div class="stat-row"><span class="muted">Remaining</span><span class="bold">₹7,90,000</span></div>
+        <div class="bar-bg" style="height:14px;margin-top:12px"><div class="bar-fill bar-blue" style="width:60%"></div></div>
+        <div class="bar-label">60% utilized — On Track</div>
+        <div class="gl-section">
+          <div class="gl-title">GL Account Breakdown</div>
+          <div class="stat-row small-text"><span>Marketing (6001)</span><span>₹5,50,000</span></div>
+          <div class="stat-row small-text"><span>Logistics (6002)</span><span>₹4,10,000</span></div>
+          <div class="stat-row small-text"><span>Customer Svc (6003)</span><span>₹2,50,000</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPROVALS TAB -->
+  <div class="sp-content hidden" id="tab-approvals">
+    <div class="sp-section-title">Approval Workflow (SAP BTP Workflow Service)</div>
+    <div class="sp-section-sub">Multi-level PO approval — automated via SAP Business Rules Engine</div>
+    <div class="two-col">
+      <div>
+        <div class="sub-heading">Pending Approvals (<span id="pending-label">3</span>)</div>
+        <div id="approval-list"></div>
+        <div id="all-approved-msg" class="alert alert-success hidden">All POs have been processed. No pending approvals.</div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">BTP Workflow — Process Steps</div>
+        <div class="flow-step"><div class="flow-dot dot-done"></div><div><div class="flow-name">1. PO Created</div><div class="flow-desc">Requester initiates via Fiori app</div></div></div>
+        <div class="flow-step"><div class="flow-dot dot-done"></div><div><div class="flow-name">2. System Validation</div><div class="flow-desc">CAP service checks budget &amp; vendor master</div></div></div>
+        <div class="flow-step"><div class="flow-dot dot-active"></div><div><div class="flow-name">3. Manager Approval</div><div class="flow-desc">Auto-routed based on amount threshold</div></div></div>
+        <div class="flow-step"><div class="flow-dot dot-pending"></div><div><div class="flow-name">4. Finance Check (FI)</div><div class="flow-desc">Budget availability verified in HANA</div></div></div>
+        <div class="flow-step"><div class="flow-dot dot-pending"></div><div><div class="flow-name">5. PO Released to Vendor</div><div class="flow-desc">Auto-email via SAP Integration Suite</div></div></div>
+        <div class="flow-step"><div class="flow-dot dot-pending"></div><div><div class="flow-name">6. GRN &amp; Invoice (MM→FI)</div><div class="flow-desc">Three-way match, FI document posted</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPANY SETUP TAB -->
+  <div class="sp-content hidden" id="tab-org">
+    <div class="sp-section-title">Company Setup — NovaTech Industries Pvt. Ltd.</div>
+    <div class="sp-section-sub">Fictitious enterprise org structure with FI, MM &amp; SD sub-organizations (SAP Capstone)</div>
+    <div class="company-banner">
+      <div class="company-name">NovaTech Industries Pvt. Ltd.</div>
+      <div class="company-meta">Client: 100 &nbsp;|&nbsp; Company Code: NTPL &nbsp;|&nbsp; Country: India &nbsp;|&nbsp; Currency: INR</div>
+      <div class="company-meta">Plant: NT01 (Kolkata HQ) &nbsp;|&nbsp; NT02 (Mumbai Branch) &nbsp;|&nbsp; Sales Org: SO01</div>
+    </div>
+    <div class="org-grid">
+      <div class="org-card fi">
+        <div class="org-tag tag-fi">FI MODULE</div>
+        <div class="org-name">Financial Accounting</div>
+        <div class="org-code">Company Code: NTPL</div>
+        <div class="org-detail">
+          <b>Chart of Accounts:</b> CAIN<br>
+          <b>Fiscal Year Variant:</b> V3 (April – March)<br>
+          <b>GL Account Range:</b> 4001–4099<br>
+          <b>Cost Centers:</b> CC-1001 to CC-1005<br>
+          <b>Controlling Area:</b> NTCA<br>
+          <b>Posting Period Variant:</b> PPV1<br><br>
+          <b>Sub-processes:</b> AP, AR, GL, Asset Accounting, Bank Accounting, Tax Configuration, Dunning
+        </div>
+      </div>
+      <div class="org-card mm">
+        <div class="org-tag tag-mm">MM MODULE</div>
+        <div class="org-name">Materials Management</div>
+        <div class="org-code">Plant: NT01, NT02 | Purchase Org: PO01</div>
+        <div class="org-detail">
+          <b>Storage Locations:</b> SL01 (Raw), SL02 (Finished)<br>
+          <b>Purchasing Group:</b> PG01<br>
+          <b>Material Types:</b> ROH, HALB, FERT<br>
+          <b>Vendor Account Group:</b> VEND<br>
+          <b>Valuation Class:</b> 3000, 7920<br>
+          <b>Movement Types:</b> 101, 122, 261<br><br>
+          <b>Sub-processes:</b> PR→PO→GRN, Invoice Verification, Inventory Management, MRP, Vendor Evaluation
+        </div>
+      </div>
+      <div class="org-card sd">
+        <div class="org-tag tag-sd">SD MODULE</div>
+        <div class="org-name">Sales &amp; Distribution</div>
+        <div class="org-code">Sales Org: SO01 | Distribution Channel: DC01</div>
+        <div class="org-detail">
+          <b>Division:</b> DV01 (Electronics &amp; Machinery)<br>
+          <b>Sales Area:</b> SO01 / DC01 / DV01<br>
+          <b>Customer Account Group:</b> CUST<br>
+          <b>Shipping Point:</b> SP01 (Kolkata)<br>
+          <b>Pricing Procedure:</b> RVAA01<br>
+          <b>Output Types:</b> BA00, RD00<br><br>
+          <b>Sub-processes:</b> Inquiry, Quotation, Sales Order, Delivery, PGI, Billing, Credit Mgmt
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT PROJECT TAB -->
+  <div class="sp-content hidden" id="tab-about">
+    <div class="sp-section-title">About This Project</div>
+    <div class="sp-section-sub">SAP BTP Capstone Project — University Level</div>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">Problem Statement</div>
+        <p class="about-text">NovaTech Industries Pvt. Ltd., a mid-size manufacturing company, suffers from a <b>manual PO approval process</b> that causes 3–11 day delays, 23% budget overruns due to poor cross-departmental visibility, and disconnected FI-MM workflows requiring manual reconciliation.</p>
+        <p class="about-text">The goal is to build a <b>cloud-native solution on SAP Business Technology Platform (BTP)</b> that automates PO creation, multi-level approvals, and real-time budget tracking across FI, MM, and SD functional areas.</p>
+        <div class="panel-title" style="margin-top:20px">Tech Stack</div>
+        <div class="stat-row small-text"><span class="muted">Frontend</span><span>SAP Build Apps (Fiori UI)</span></div>
+        <div class="stat-row small-text"><span class="muted">Backend</span><span>SAP CAP (Node.js / OData)</span></div>
+        <div class="stat-row small-text"><span class="muted">Database</span><span>SAP HANA Cloud</span></div>
+        <div class="stat-row small-text"><span class="muted">Workflow</span><span>SAP BTP Workflow Service</span></div>
+        <div class="stat-row small-text"><span class="muted">Integration</span><span>SAP Integration Suite</span></div>
+        <div class="stat-row small-text"><span class="muted">Auth</span><span>SAP XSUAA / BTP IAM</span></div>
+        <div class="stat-row small-text"><span class="muted">Prototype</span><span>HTML5 + Vanilla JS</span></div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Key Features</div>
+        <ul class="feature-list">
+          <li>Real-time PO creation with vendor &amp; material master integration</li>
+          <li>Automated multi-level approval workflow with threshold-based routing</li>
+          <li>Live budget consumption tracking per cost center &amp; GL account</li>
+          <li>FI-MM integration: three-way match for GRN &amp; invoice verification</li>
+          <li>SD module: sales order lifecycle from inquiry to billing</li>
+          <li>SAP BTP Workflow Service for process orchestration</li>
+          <li>Role-based access control (Requester / Manager / Finance)</li>
+          <li>Email notifications via SAP Integration Suite</li>
+        </ul>
+        <div class="panel-title" style="margin-top:20px">Target Certifications</div>
+        <div class="stat-row small-text"><span class="muted">SAP</span><span>C_BTP_2409 — BTP Developer Associate</span></div>
+        <div class="stat-row small-text"><span class="muted">SAP</span><span>SAP Build Apps Associate</span></div>
+        <div class="stat-row small-text"><span class="muted">SAP</span><span>SAP CAP Fundamentals (OpenSAP)</span></div>
+        <div class="stat-row small-text"><span class="muted">Future</span><span>S/4HANA MM / FI Associate</span></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end sp-app -->
+
+<!-- CREATE PO MODAL -->
+<div class="modal-bg hidden" id="modal-create">
+  <div class="modal">
+    <div class="modal-title">Create New Purchase Order</div>
+    <div id="po-success" class="alert alert-success hidden">PO created! Approval workflow triggered in BTP.</div>
+    <div class="two-input">
+      <div class="form-group">
+        <label class="form-label">Vendor</label>
+        <select class="form-select" id="f-vendor">
+          <option>TechSupply Co. (V001)</option>
+          <option>OfficeNeeds Ltd. (V002)</option>
+          <option>IndustrialParts (V003)</option>
+          <option>CloudServ Inc. (V004)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Department</label>
+        <select class="form-select" id="f-dept">
+          <option>Materials Mgmt (MM)</option>
+          <option>Finance (FI)</option>
+          <option>Sales &amp; Distribution (SD)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Material / Service Description</label>
+      <input class="form-input" id="f-material" placeholder="e.g., Industrial Bearings 50mm" />
+    </div>
+    <div class="two-input">
+      <div class="form-group">
+        <label class="form-label">Quantity</label>
+        <input class="form-input" type="number" id="f-qty" placeholder="100" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Unit Price (INR)</label>
+        <input class="form-input" type="number" id="f-price" placeholder="5000" />
+      </div>
+    </div>
+    <div class="two-input">
+      <div class="form-group">
+        <label class="form-label">Plant</label>
+        <select class="form-select">
+          <option>NT01 – Kolkata HQ</option>
+          <option>NT02 – Mumbai Branch</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">GL Account</label>
+        <select class="form-select">
+          <option>5001 – Raw Materials</option>
+          <option>5002 – Machinery</option>
+          <option>4002 – Office Supplies</option>
+          <option>6001 – Marketing Expense</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="hideCreate()">Cancel</button>
+      <button class="btn btn-primary" onclick="submitPO()">Submit PO</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
