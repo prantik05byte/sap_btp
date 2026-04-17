@@ -229,7 +229,6 @@ smartprocure360/
 SAP BTP Developer Program — Capstone Submission  
 Batch/Program: [B.Tech.]  
 Roll Number: [2305393]  
-Submission Deadline: April 21, 2026
 
 ---
 
