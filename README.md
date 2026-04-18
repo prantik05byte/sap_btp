@@ -238,7 +238,5 @@ This project is submitted for academic purposes as part of the SAP BTP Developer
 
 ---
 
-<div align="center">
-  <sub>Built with ❤️ on SAP Business Technology Platform</sub>
-</div>
+
 
